@@ -2,11 +2,10 @@ package orm_test
 
 import (
 	"testing"
-
-	"../orm"
+	"../go-orm"
 )
 
 func TestOrm(t *testing.T) {
-	orm := orm.Create(orm.DefaultConfig())
-	defer orm.Close()
+	o := orm.Create(orm.DefaultConfig())
+	defer o.Close()
 }

@@ -12,4 +12,10 @@ func DefaultConfig() *Conf {
 type Conf struct {
 	DebugLogging    bool
 	SafeModeEnabled bool
+
+	Username string
+	Password string
+	Hostname string
+	Port int
+	Database string
 }

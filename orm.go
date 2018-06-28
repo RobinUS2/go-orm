@@ -35,8 +35,8 @@ func (orm *Orm) Value() interface{} {
 // Open connection
 func (orm *Orm) open() {
 	var err error
-	// @todo based on conf
-	orm.db, err = gorm.Open("mysql", "usr:pwd@tcp(hosthere:3306)/dbhere?charset=utf8&parseTime=True&loc=Local")
+	// @todo escape?
+	orm.db, err = gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local", orm.Conf.Username, orm.Conf.Password, orm.Conf.Hostname, orm.Conf.Port, orm.Conf.Database))
 	if err != nil {
 		panic(fmt.Sprintf("Unable to open database: %s", err))
 	}
