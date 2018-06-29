@@ -7,6 +7,7 @@ func DefaultConfig() *Conf {
 		SafeModeEnabled: true,
 		AutoOpen:        true,
 		Dialect:         "mysql",
+		Port:            3306,
 	}
 }
 
