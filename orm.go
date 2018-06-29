@@ -33,10 +33,14 @@ func (orm *Orm) Value() interface{} {
 }
 
 // Open connection
-func (orm *Orm) open() {
+func (orm *Orm) Open() {
 	var err error
 	// @todo escape?
-	orm.db, err = gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local", orm.Conf.Username, orm.Conf.Password, orm.Conf.Hostname, orm.Conf.Port, orm.Conf.Database))
+	connectionStr := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local", orm.Conf.Username, orm.Conf.Password, orm.Conf.Hostname, orm.Conf.Port, orm.Conf.Database)
+	if len(orm.Conf.ConnectionString) > 0 {
+		connectionStr = orm.Conf.ConnectionString
+	}
+	orm.db, err = gorm.Open(orm.Conf.Dialect, connectionStr)
 	if err != nil {
 		panic(fmt.Sprintf("Unable to open database: %s", err))
 	}
@@ -211,6 +215,8 @@ func Create(conf *Conf) *Orm {
 		Conf:             conf,
 		registeredModels: make(map[string]interface{}),
 	}
-	orm.open()
+	if orm.Conf.AutoOpen {
+		orm.Open()
+	}
 	return orm
 }
