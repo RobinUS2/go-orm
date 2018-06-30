@@ -52,6 +52,13 @@ func (orm *Orm) Open() {
 	}
 }
 
+// select table
+func (orm *Orm) Table(table string) *Orm {
+	clone := orm.clone()
+	clone.db = clone.db.Table(table)
+	return clone
+}
+
 // Setup tables automatically based on models
 func (orm *Orm) AutoMigrate(values ...interface{}) *Orm {
 	clone := orm.clone()
@@ -111,7 +118,7 @@ func (orm *Orm) Delete(value interface{}) *Orm {
 
 func (orm *Orm) Model(value interface{}) *Orm {
 	clone := orm.clone()
-	clone.db.Model(value)
+	clone.db = clone.db.Model(value)
 	return clone
 }
 
