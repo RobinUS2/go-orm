@@ -43,6 +43,10 @@ func (model Model) Save(orm *Orm) {
 	clone.db.Model(model.Clone()).Save(model)
 }
 
+func (model Model) TableName() string {
+	return model.GetName()
+}
+
 func (model Model) ParseID(val interface{}) uint {
 	if val == nil {
 		return 0
