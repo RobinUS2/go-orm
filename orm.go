@@ -22,6 +22,11 @@ type Orm struct {
 	registeredModels map[string]interface{}
 }
 
+// Raw backend
+func (orm *Orm) RawBackend() *gorm.DB {
+	return orm.db
+}
+
 // Error handler
 func (orm *Orm) Error() error {
 	return orm.db.Error
