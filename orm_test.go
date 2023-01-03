@@ -2,7 +2,7 @@ package orm_test
 
 import (
 	"testing"
-	"../go-orm"
+	"github.com/RobinUS2/go-orm"
 )
 
 func TestOrm(t *testing.T) {
